@@ -56,8 +56,11 @@
 
 - (void)loadView
 {
-    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    self.view = [[UIView alloc] initWithFrame:rootViewController.view.bounds];
+    CGRect bounds = [UIScreen mainScreen].bounds;
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+        bounds = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.height, bounds.size.width);
+    }
+    self.view = [[UIView alloc] initWithFrame:bounds];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
